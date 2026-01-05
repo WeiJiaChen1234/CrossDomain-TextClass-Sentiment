@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>预测记录 - 情感分析系统</title>
+    <style>
+        .container { width: 800px; margin: 50px auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        th { background: #f8f9fa; }
+        .back { margin-top: 20px; }
+        a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>我的预测记录</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>输入文本</th>
+                    <th>情感类别</th>
+                    <th>置信度</th>
+                    <th>预测时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ record.text }}</td>
+                    <td>{{ record.label_name }}</td>
+                    <td>{{ "%.2f%%"|format(record.confidence * 100) }}</td>
+                    <td>{{ record.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">暂无预测记录</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="back">
+            <a href="{{ url_for('index') }}">返回首页</a>
+        </div>
+    </div>
+</body>
+</html>

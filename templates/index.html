@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>跨领域情感分类系统</title>
+    <!-- 修正静态资源路径：Flask 模板用 url_for 生成绝对路径 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-$END$
+    <div class="container">
+        <!-- 新增：用户信息栏 -->
+        <div class="user-info">
+            <span>当前登录：<strong>{{ username }}</strong></span>
+            <a href="{{ url_for('records') }}" class="btn-link">查看预测记录</a>
+            <a href="{{ url_for('logout') }}" class="btn-link">退出登录</a>
+        </div>
+
+        <h1>跨领域情感分类系统</h1>
+
+        <!-- 文本输入区域 -->
+        <div class="input-area">
+            <textarea id="text-input" placeholder="请输入需要分析的文本..."></textarea>
+            <button id="predict-btn">预测情感</button>
+        </div>
+
+        <!-- 预测结果展示 -->
+        <div class="result-area" id="result-area">
+            <h3>预测结果：</h3>
+            <div id="result-content">等待预测...</div>
+        </div>
+
+        <!-- 可视化图表区域（展示模型性能） -->
+        <div class="charts-area">
+            <h3>模型性能可视化</h3>
+            <div class="chart-container">
+                <canvas id="loss-chart"></canvas>  <!-- 训练收敛曲线 -->
+                <canvas id="confusion-chart"></canvas>  <!-- 混淆矩阵 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 修正静态资源路径 -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
